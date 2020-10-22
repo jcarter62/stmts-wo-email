@@ -1,0 +1,6 @@
+getmac
+pyodbc
+msal
+cryptography
+flask
+flask-bootstrap
