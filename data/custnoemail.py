@@ -2,9 +2,14 @@ from appsettings import Settings
 import pyodbc
 import copy
 
-# Read dataset from table LastStatement_Accounts,
+# Read dataset from query:
+#     select la.name_id as account, la.fullname as name
+#     from LastStatement_Accounts la
+#     left join LastStatement_Email e on la.name_id = e.name_id
+#     where e.name_id is null
+#     order by la.name_id
 
-class ReceivedStatement:
+class CustNoEmail:
 
     def __init__(self, ):
         self.settings = Settings()
@@ -27,7 +32,13 @@ class ReceivedStatement:
         result = []
         conn = pyodbc.connect(self._conn_str_())
         cursor = conn.cursor()
-        cmd = 'select name_id, fullname from LastStatement_Accounts order by name_id'
+        cmd = """
+            select la.name_id, la.fullname
+            from LastStatement_Accounts la
+            left join LastStatement_Email e on la.name_id = e.name_id
+            where e.name_id is null
+            order by la.name_id
+        """
         try:
             for row in cursor.execute(cmd):
                 rowdata = self._extract_row(row)

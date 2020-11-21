@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    {% block content %}
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+        <div class="container">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-10">
+                        <span>
+                            <h3>
+                                Accounts received a statement, and no email
+                            </h3>
+
+                        </span>
+                    </div>
+                </div>
+                <div class="jumbotron tabletext">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Account</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">
+                                    <a href="/views/statement-no-email/dl"  >
+                                        <img class="iconx2" src="{{ url_for('static', filename='icons/download.svg') }}" title="Download" />
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for r in context.data %}
+                            <tr>
+                                <td class="col-xs-3">{{ r.account }}</td>
+                                <td class="col-xs-8">{{ r.name }}</td>
+                                <td class="col-xs-1">&nbsp;</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            {% include 'footer.html' %}
+        </div>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/functions.js') }}"></script>
+    {% endblock %}
+{% endblock %}

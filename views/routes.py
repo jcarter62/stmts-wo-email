@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, jsonify, redirect, request, g
 from appsettings import Settings
-from data import ReceivedStatement
+from data import ReceivedStatement, CustNoEmail
 
 view_routes = Blueprint('view_routes', __name__, static_folder='static', template_folder='templates')
 
@@ -41,6 +41,47 @@ def route_received_a_statement_dl():
     output.headers['Content-Disposition'] = 'attachment; filename=received-a-statement.csv'
     output.headers['Content-type'] = 'text/csv'
     return output
+
+
+@view_routes.route('/statement-no-email', methods=['GET'])
+def route_statement_no_email():
+    settings = Settings()
+    #
+    # Load Data
+    #
+    rs = CustNoEmail()
+    context = {
+        'settings': settings.items,
+        'auth': g.auth,
+        'data': rs.data
+    }
+
+    return render_template('statement-no-email.html', context=context)
+
+
+@view_routes.route('/statement-no-email/dl', methods=['GET'])
+def route_statement_no_email_dl():
+    import io
+    import csv
+    from flask import make_response
+
+    settings = Settings()
+    #
+    # Load Data
+    #
+    rs = CustNoEmail()
+    csvdata = convert_to_csv(rs.data)
+    si = io.StringIO()
+    #
+    cw = csv.writer(si)
+    for row in csvdata:
+        r = row[0] + ',' + row[1]
+        cw.writerow(row)
+    output = make_response(si.getvalue())
+    output.headers['Content-Disposition'] = 'attachment; filename=statement-no-email.csv'
+    output.headers['Content-type'] = 'text/csv'
+    return output
+
 
 def convert_to_csv(data):
     result = []
