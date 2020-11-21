@@ -17,17 +17,11 @@ class Defaults:
             {'name': 'sql-user', 'value': '', 'type': 'text'},
             {'name': 'sql-password', 'value': '', 'type': 'password'},
 
-            {'name': 'ms-client_secret', 'value': 'value', 'type': 'password'},
-            {'name': 'ms-authority', 'value': 'value', 'type': 'text'},
-            {'name': 'ms-client_id', 'value': 'value', 'type': 'text'},
-            {'name': 'ms-redirect_path', 'value': 'value', 'type': 'text'},
-            {'name': 'ms-scope', 'value': 'value', 'type': 'text'},
-
             {'name': 'session_host', 'value': 'localhost', 'type': 'text'},
             {'name': 'session_port', 'value': '27017', 'type': 'text'},
             {'name': 'session_db', 'value': 'session', 'type': 'text'},
 
-            {'name': 'host-url', 'value': 'http://localhost:5000', 'type': 'text'},
+            {'name': 'host-url', 'value': 'http://localhost:5017', 'type': 'text'},
         ]
         return
 

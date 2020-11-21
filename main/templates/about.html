@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    {% block content %}
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+        <div class="container">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h3>
+                            About
+                        </h3>
+                    </div>
+                </div>
+                <div class="jumbotron tabletext">
+                    This application was created to assist customer accounting in identification of customers
+                    who received a water billing statement, and did not receive an email announcing this
+                    information.<br>
+                </div>
+            </div>
+            <hr>
+            {% include 'footer.html' %}
+        </div>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/functions.js') }}"></script>
+    {% endblock %}
+{% endblock %}

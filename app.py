@@ -1,12 +1,13 @@
 import flask
 from flask import redirect, render_template, request, g
-from appsettings.appsettings_routes import appsetting_routes
 from flask_bootstrap import Bootstrap
 from appsettings import Settings
-
+from main import main_routes
+from views import view_routes
 
 app = flask.Flask(__name__)
-app.register_blueprint(appsetting_routes, url_prefix='/settings')
+app.register_blueprint(main_routes, url_prefix='/main')
+app.register_blueprint(view_routes, url_prefix='/views')
 Bootstrap(app)
 
 
@@ -23,8 +24,8 @@ def after_request_func(response):
 
 @app.route('/')
 def hello_world():
-    return redirect('/settings/setup')
+    return redirect('/main')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5017)
+    app.run(host='0.0.0.0', port=5000)

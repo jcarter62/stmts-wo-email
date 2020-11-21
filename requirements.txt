@@ -1,6 +1,6 @@
+flask
+flask-bootstrap
 getmac
 pyodbc
 msal
 cryptography
-flask
-flask-bootstrap

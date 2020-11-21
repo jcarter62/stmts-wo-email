@@ -237,11 +237,12 @@ function delete_search_string() {
 }
 
 function logout_button() {
-    window.location.href = "/auth/logout";
+    // window.location.href = "/auth/logout";
+    window.location.href = "/";
 }
 
 function about_button() {
-    window.location.href = "/about/application";
+    window.location.href = "/main/about";
 }
 
 function pw2txt(id) {

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    {% block content %}
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+        <div class="container">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h3>
+                            Menu
+                        </h3>
+                    </div>
+                </div>
+                <div class="jumbotron tabletext">
+                    <ul>
+                        <li><a href="/views/received-a-statement">View customers that received a statement.</a></li>
+                        <li>Update Tables</li>
+                        <li>View Data</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            {% include 'footer.html' %}
+        </div>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/functions.js') }}"></script>
+    {% endblock %}
+{% endblock %}
