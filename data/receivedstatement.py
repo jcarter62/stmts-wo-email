@@ -1,8 +1,8 @@
 from appsettings import Settings
+from .connection import Connection
 import pyodbc
 import copy
 
-# Read dataset from table LastStatement_Accounts,
 
 class ReceivedStatement:
 
@@ -12,20 +12,9 @@ class ReceivedStatement:
         self.load_data()
         return
 
-    def _conn_str_(self, ):
-        server = self.settings.get('sqlserver')
-        database = self.settings.get('sqldb')
-        driver = 'DRIVER={ODBC Driver 17 for SQL Server}'
-        driver = driver + ';SERVER=' + server + ';DATABASE=' + database + ';'
-        if self.settings.get('sql-trusted').lower() == 'y':
-            driver = driver + 'Trusted_Connection=yes;'
-        else:
-            driver = driver + 'UID=' + self.settings.get('sql-user') + ';PWD='+ self.settings.get('sql-password')
-        return driver
-
     def load_data(self):
         result = []
-        conn = pyodbc.connect(self._conn_str_())
+        conn = pyodbc.connect(Connection().value())
         cursor = conn.cursor()
         cmd = 'select name_id, fullname from LastStatement_Accounts order by name_id'
         try:

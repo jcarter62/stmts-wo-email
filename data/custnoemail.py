@@ -1,6 +1,8 @@
 from appsettings import Settings
 import pyodbc
 import copy
+from .connection import Connection
+
 
 # Read dataset from query:
 #     select la.name_id as account, la.fullname as name
@@ -17,20 +19,9 @@ class CustNoEmail:
         self.load_data()
         return
 
-    def _conn_str_(self, ):
-        server = self.settings.get('sqlserver')
-        database = self.settings.get('sqldb')
-        driver = 'DRIVER={ODBC Driver 17 for SQL Server}'
-        driver = driver + ';SERVER=' + server + ';DATABASE=' + database + ';'
-        if self.settings.get('sql-trusted').lower() == 'y':
-            driver = driver + 'Trusted_Connection=yes;'
-        else:
-            driver = driver + 'UID=' + self.settings.get('sql-user') + ';PWD='+ self.settings.get('sql-password')
-        return driver
-
     def load_data(self):
         result = []
-        conn = pyodbc.connect(self._conn_str_())
+        conn = pyodbc.connect(Connection().value())
         cursor = conn.cursor()
         cmd = """
             select la.name_id, la.fullname
