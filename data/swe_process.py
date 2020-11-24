@@ -14,7 +14,10 @@ class SWE_Process:
         if self.exists == False:
             self.create_swe_process()
         self.process_date = arrow.get(self.get_process_date())
-        self.process_date_str = self.process_date.format(fmt='MM/DD/YYYY')
+        if self.process_date < arrow.get('2000-01-01T00:00:00'):
+            self.process_date_str = 'N.A.'
+        else:
+            self.process_date_str = self.process_date.format(fmt='MM/DD/YYYY')
         return
 
     #
@@ -91,6 +94,53 @@ class SWE_Process:
         self.data = copy.deepcopy(result)
         return
 
+    def process_data(self):
+        conn = pyodbc.connect(Connection().value())
+        cursor = conn.cursor()
+        cmd = """
+            begin try
+                begin transaction;
+                declare @notedate datetime;
+                declare @lastid int;
+                
+                select top 1 cdate as Most_Recent_EStatement_Notice from NameNotes where txt like 'E-Statement %' order by cdate desc;
+                -- 1
+                select @notedate = max(cdate) from NameNotes where txt like 'E-Statement %' 
+                -- 2
+                set @notedate = DATEADD(day, -1, @notedate)
+                
+                -- 3
+                select distinct name_id  into #Estatements from NameNotes
+                where txt like 'E-Statement %' and cdate > @notedate
+                
+                -- 4
+                select @lastid = max(Statement_ID) from xBegBal;
+                select distinct x.Name_ID into #statements from xBegBal x where x.Statement_ID = @lastid ;
+                
+                drop table LastStatement_Email;
+                select * into LastStatement_Email from NameNotes
+                where txt like 'E-Statement %' and cdate > @notedate
+                
+                drop table LastStatement_Accounts;
+                select s.name_id, n.fullname into LastStatement_Accounts from #statements s
+                join name n on s.Name_ID = n.NAME_ID 
+                
+                drop table #Estatements; 
+                drop table #statements;
+                truncate table swe_process;
+                insert into swe_process (process_date) values (getdate());
+                
+                commit transaction;
+            end try
+            begin catch
+                rollback transaction;
+            end catch
+        """
+        cursor.execute(cmd)
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return
 
     def _extract_row(self, row):
         r = {}

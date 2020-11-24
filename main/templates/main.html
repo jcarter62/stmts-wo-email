@@ -12,26 +12,21 @@
                     SWE Process Date: {{ context.swe_process }}
                 </div></div>
                 <div class="row"><div class="col-md-10">
-                    (Process Button)
+                    <form action="/main/process_data" method="post">
+                        <button class="btn {{ context.process_button_type }}" type="submit">{{ context.process_button_txt }}</button>
+                    </form>
                 </div></div>
                 <div class="jumbotron tabletext">
-                    <div class="row"><div class="col-md-10">
-                        View customers that received:
-                    </div></div>
-                    <div class="row"><div class="col-md-10">
-                        Statements
-                    </div></div>
-                    <div class="row"><div class="col-md-10">
-                        Email Notification
-                    </div></div>
-                    <div class="row"><div class="col-md-10">
-                        Do not have email
-                    </div></div>
+                    <div class="row">
+                        <div class="col-md-10">
+                            View customers that received statement
+                        </div>
+                    </div>
                     <ul>
-                        <li><a href="/views/received-a-statement">View customers that received a statement by email.</a></li>
-                        <li><a href="/views/statement-no-email">View customers that received a statement, and have no email.</a></li>
-                        <li>Update Tables</li>
-                        <li>View Data</li>
+                        <li><a href="/views/customer-has-email">and notification by email.</a></li>
+                        <li><a href="/views/statement-no-email">and do not have email.</a></li>
+                        <li><a href="/views/received-a-statement">all customers.</a></li>
+                        <li><a href="/views/customer-view-status">web access status</a></li>
                     </ul>
                 </div>
             </div>
