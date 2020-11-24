@@ -4,3 +4,4 @@ getmac
 pyodbc
 msal
 cryptography
+arrow

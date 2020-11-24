@@ -2,6 +2,7 @@ from appsettings import Settings
 from .connection import Connection
 import pyodbc
 import copy
+import arrow
 
 
 class StatementPrintDate:
@@ -10,6 +11,8 @@ class StatementPrintDate:
         self.settings = Settings()
         self.data = []
         self.load_data()
+        self.maildate = arrow.get( self.data[0]['maildate'] )
+        self.maildate_str = self.maildate.format(fmt='MM/DD/YYYY')
         return
 
     def load_data(self):
@@ -38,6 +41,7 @@ class StatementPrintDate:
             print(str(e))
         self.data = copy.deepcopy(result)
         return
+
 
     def _extract_row(self, row):
         r = {}

@@ -4,9 +4,14 @@ html { font-size: 100%; }
 *  Ref: https://css-tricks.com/fitting-text-to-a-container/
 */
 .datatext {
-    font-size: 2.75vw;
+    font-size: 2.5vw;
     font-family: Helvetica;
     /*font-size: 1.5em;*/
+}
+
+.listtext {
+    font-size: 2.25vw;
+    font-family: Courier;
 }
 
 .icon {

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, jsonify, redirect, request, g
 from appsettings import Settings
-from data import StatementPrintDate
+from data import StatementPrintDate, SWE_Process
 
 main_routes = Blueprint('main_routes', __name__, static_folder='static', template_folder='templates')
 
@@ -8,11 +8,16 @@ main_routes = Blueprint('main_routes', __name__, static_folder='static', templat
 def main_root():
     settings = Settings()
     spd = StatementPrintDate()
-    spd_data = spd.data[0]['maildate']
+    spd_maildate = spd.maildate_str
+    swe = SWE_Process()
+    process_date = swe.process_date_str
+
+
     context = {
         'settings': settings.items,
         'auth': g.auth,
-        'statement_print_date': spd_data
+        'statement_print_date': spd_maildate,
+        'swe_process': process_date
     }
     return render_template('main.html', context=context)
 
