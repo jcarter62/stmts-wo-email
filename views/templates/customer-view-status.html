@@ -7,34 +7,43 @@
             <div class="page-header listtext">
                 <div class="row">
                     <div class="col-md-10">
-                        <span>
-                            <h3>
-                                Customer view status
-                            </h3>
-
-                        </span>
+                        <h3>Customer view status</h3>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <a href="/views/customer-view-status/dl"  >
+                            <img class="iconx2" src="{{ url_for('static', filename='icons/download.svg') }}" title="Download" />
+                        </a>
                     </div>
                 </div>
-                <div class="jumbotron tabletext">
+                <div class="jumbotron tabletext listtext-small">
                     <table class="table table-striped">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Account</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">
-                                    <a href="/views/xxx/dl"  >
-                                        <img class="iconx2" src="{{ url_for('static', filename='icons/download.svg') }}" title="Download" />
-                                    </a>
+                                <th class="col-xs-1">Account</th>
+                                <th class="col-xs-3">Name</th>
+                                <th class="col-xs-1">Viewed</th>
+                                <th class="col-xs-1">Not Viewed</th>
+                                <th class="col-xs-1">Internal View</th>
+                                <th class="col-xs-2">Tech</th>
+                                <th class="col-xs-1 text-right">Balance</th>
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody>
                         {% for r in context.data %}
-                            <tr>
-                                <td class="col-xs-2">{{ r.id }}</td>
+                            {% if r.highlight == 'yes' %}
+                                <tr class="highlight-row">
+                            {% else %}
+                                <tr>
+                            {%  endif %}
+                                <td class="col-xs-1">{{ r.id }}</td>
                                 <td class="col-xs-3">{{ r.name }}</td>
-                                <td class="col-xs-1">&nbsp;</td>
+                                <td class="col-xs-1 text-center">{{ r.viewed }}</td>
+                                <td class="col-xs-1 text-center">{{ r.notviewed }}</td>
+                                <td class="col-xs-1 text-center">{{ r.viewedinternal }}</td>
+                                <td class="col-xs-2">{{ r.tech }}</td>
+                                <td class="col-xs-1 text-right">{{ r.balance }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

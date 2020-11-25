@@ -102,6 +102,17 @@ class CustomerViewStatus:
         try:
             for row in cursor.execute(cmd):
                 rowdata = self._extract_row(row)
+                #
+                # https://www.kite.com/python/answers/how-to-format-a-float-as-currency-in-python
+                # https://docs.python.org/3/library/string.html#formatstrings
+                #
+                balance_amt = '{0:10.2f}'.format(float(rowdata['balance']))
+
+                row_status = ''
+                if float(rowdata['balance']) > 100:
+                    if rowdata['notviewed'] == 'X':
+                        row_status = 'yes'
+
                 record = {
                     'id': rowdata['account'],
                     'name': rowdata['fullname'],
@@ -109,7 +120,8 @@ class CustomerViewStatus:
                     'notviewed': rowdata['notviewed'],
                     'viewedinternal': rowdata['viewedinternal'],
                     'tech': rowdata['tech'],
-                    'balance': rowdata['balance']
+                    'balance': balance_amt,
+                    'highlight': row_status
                 }
                 result.append(record)
         except Exception as e:

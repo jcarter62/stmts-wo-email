@@ -14,6 +14,24 @@ html { font-size: 100%; }
     font-family: Courier;
 }
 
+.listtext-small {
+    font-size: 1vw;
+    font-family: Courier;
+}
+
+.highlight-row {
+    font-weight: bold;
+    color: darkred;
+}
+
+.alignleft {
+    text-align: left;
+}
+
+.alignright {
+    text-align: right;
+}
+
 .icon {
     height: 1.5em;
 }

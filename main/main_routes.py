@@ -18,13 +18,15 @@ def main_root():
         btn_txt = 'Process Recommended'
         btn_type = 'btn-danger'
 
+
     context = {
         'settings': settings.items,
         'auth': g.auth,
         'statement_print_date': spd_maildate,
         'swe_process': process_date,
         'process_button_txt': btn_txt,
-        'process_button_type': btn_type
+        'process_button_type': btn_type,
+        'database_info': settings.get('sqldb'),
     }
     return render_template('main.html', context=context)
 
