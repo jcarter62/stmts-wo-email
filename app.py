@@ -4,6 +4,12 @@ from flask_bootstrap import Bootstrap
 from appsettings import Settings
 from main import main_routes
 from views import view_routes
+from waitress import serve
+from applog import AppLog
+# import logging
+# import arrow
+
+mylogger = None
 
 app = flask.Flask(__name__)
 app.register_blueprint(main_routes, url_prefix='/main')
@@ -11,8 +17,10 @@ app.register_blueprint(view_routes, url_prefix='/views')
 Bootstrap(app)
 
 
+
 @app.before_request
 def app_before_request():
+    mylogger.log_request(request)
     auth = {'authenticated': False, 'user': False, 'admin': False, 'name': ''}
     #
     g.auth = auth
@@ -26,7 +34,9 @@ def after_request_func(response):
 def hello_world():
     return redirect('/main')
 
-
 if __name__ == '__main__':
-    print('http://localhost:5000')
-    app.run(host='0.0.0.0', port=5000)
+    # app.run(host='0.0.0.0', port=5000)
+    # logger = logging.getLogger('waitress')
+    # logger.setLevel(logging.INFO)
+    mylogger = AppLog()
+    serve(app, host='0.0.0.0', port=5000)

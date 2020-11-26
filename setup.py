@@ -9,7 +9,6 @@ app = flask.Flask(__name__)
 app.register_blueprint(appsetting_routes, url_prefix='/settings')
 Bootstrap(app)
 
-
 @app.before_request
 def app_before_request():
     auth = {'authenticated': False, 'user': False, 'admin': False, 'name': ''}
@@ -19,7 +18,6 @@ def app_before_request():
 @app.after_request
 def after_request_func(response):
     return response
-
 
 @app.route('/')
 def hello_world():
