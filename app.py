@@ -1,15 +1,10 @@
 import flask
-from flask import redirect, render_template, request, g
+from flask import redirect, request, g
 from flask_bootstrap import Bootstrap
-from appsettings import Settings
 from main import main_routes
 from views import view_routes
 from waitress import serve
 from applog import AppLog
-# import logging
-# import arrow
-
-mylogger = None
 
 app = flask.Flask(__name__)
 app.register_blueprint(main_routes, url_prefix='/main')
@@ -17,13 +12,13 @@ app.register_blueprint(view_routes, url_prefix='/views')
 Bootstrap(app)
 
 
-
 @app.before_request
 def app_before_request():
-    mylogger.log_request(request)
+    my_logger.log_request(request)
     auth = {'authenticated': False, 'user': False, 'admin': False, 'name': ''}
     #
     g.auth = auth
+
 
 @app.after_request
 def after_request_func(response):
@@ -34,9 +29,9 @@ def after_request_func(response):
 def hello_world():
     return redirect('/main')
 
+
+my_logger = None
+
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0', port=5000)
-    # logger = logging.getLogger('waitress')
-    # logger.setLevel(logging.INFO)
-    mylogger = AppLog()
+    my_logger = AppLog()
     serve(app, host='0.0.0.0', port=5000)

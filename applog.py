@@ -14,7 +14,7 @@ class AppLog:
         if req == None:
             return
 
-        msg = '%s - %s - %s ' % (req.remote_addr, arrow.now().strftime("%Y/%m/%d %H:%M:%S"), req.url)
+        msg = '%s, %s, %s, "%s"' % (arrow.now().strftime("%Y/%m/%d %H:%M:%S"), req.url, req.remote_addr, req.user_agent)
         print(msg)
         return
 

@@ -7,26 +7,24 @@
             <div class="page-header listtext">
                 <div class="row">
                     <div class="col-md-10">
-                        <span>
-                            <h3>
-                                Customer has email, and sent notification of a statement
-                            </h3>
-
-                        </span>
+                        <h3>
+                            Customer has email, and sent notification of a statement
+                        </h3>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <a href="/views/customer-has-email/dl">
+                            <img class="iconx2" src="{{ url_for('static', filename='icons/201-download.png') }}"
+                                 title="Download"/>
+                        </a>
                     </div>
                 </div>
-                <div class="jumbotron tabletext">
+                <div class="jumbotron tabletext listtext-small">
                     <table class="table table-striped">
                         <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Account</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">
-                                    <a href="/views/customer-has-email/dl"  >
-                                        <img class="iconx2" src="{{ url_for('static', filename='icons/201-download.png') }}" title="Download" />
-                                    </a>
-                                </th>
-                            </tr>
+                        <tr>
+                            <th scope="col">Account</th>
+                            <th scope="col">Name</th>
+                        </tr>
                         </thead>
 
                         <tbody>
@@ -34,7 +32,6 @@
                             <tr>
                                 <td class="col-xs-3">{{ r.account }}</td>
                                 <td class="col-xs-8">{{ r.name }}</td>
-                                <td class="col-xs-1">&nbsp;</td>
                             </tr>
                         {% endfor %}
                         </tbody>
