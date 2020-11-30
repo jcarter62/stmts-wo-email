@@ -33,5 +33,15 @@ def hello_world():
 my_logger = None
 
 if __name__ == '__main__':
+    import os
+
     my_logger = AppLog()
-    serve(app, host='0.0.0.0', port=5000)
+
+    hostIP = os.environ.get('APP_HOST')
+    if hostIP == None:
+        hostIP = '0.0.0.0'
+    portNum = os.environ.get('APP_PORT')
+    if portNum == None:
+        portNum = 5000
+
+    serve(app, host=hostIP, port=portNum)
