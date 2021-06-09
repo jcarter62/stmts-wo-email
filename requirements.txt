@@ -3,6 +3,5 @@ flask-bootstrap
 getmac
 pyodbc
 msal
-cryptography
 arrow
 waitress
